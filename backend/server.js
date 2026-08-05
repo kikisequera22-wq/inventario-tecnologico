@@ -12,8 +12,16 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // ── Servir el frontend estático ────────────────────────────
-// El frontend está en la carpeta padre (../Login)
-app.use(express.static(path.join(__dirname, '..')));
+app.use(express.static(path.join(__dirname, '..'), {
+    etag: false,
+    setHeaders(res, filePath) {
+        if (filePath.endsWith('.html')) {
+            res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate');
+        } else {
+            res.setHeader('Cache-Control', 'public, max-age=86400');
+        }
+    }
+}));
 
 // ── Rutas API ──────────────────────────────────────────────
 app.use('/api/auth',     require('./routes/auth'));
