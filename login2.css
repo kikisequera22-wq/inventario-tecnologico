@@ -5,203 +5,168 @@
     font-family: 'Poppins', 'Segoe UI', sans-serif;
 }
 
-/* ===== FONDO ===== */
+/* ===== FONDO OSCURO ===== */
 body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     min-height: 100vh;
-    background: linear-gradient(-40deg, #d50909, #ffffff, #d50909, #ffffff);
-    background-size: 400% 400%;
-    animation: gradientBG 15s ease infinite;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(ellipse at 30% 50%, #3a0000 0%, #0d0d0d 60%);
     padding: 20px;
 }
 
-@keyframes gradientBG {
-    0%   { background-position: 0% 50%; }
-    50%  { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
+.mobile-top { display: none; }
+.container  { width: 100%; max-width: 420px; }
 
-/* ===== CONTENEDOR DOS PANELES ===== */
-.container {
-    display: flex;
-    width: 720px;
-    height: 520px;
+/* ===== TARJETA ===== */
+.login-card {
     background: #fff;
     border-radius: 20px;
-    box-shadow: 0 8px 40px rgba(0,0,0,0.18);
     overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.05);
 }
 
-/* ===== PANEL IZQUIERDO (rojo) ===== */
-.toggle-box {
-    width: 42%;
-    background: #d50909;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 40px 28px;
+/* ===== CABECERA ROJA ===== */
+.card-header {
+    background: linear-gradient(135deg, #c00 0%, #d50909 50%, #ff3333 100%);
+    padding: 40px 36px 60px;
     text-align: center;
-    flex-shrink: 0;
+    position: relative;
 }
 
-.panel-logo {
-    width: 76px;
-    height: 76px;
+.card-header h1 {
+    font-size: 22px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 4px;
+    letter-spacing: 0.3px;
+}
+.card-header p {
+    font-size: 12px;
+    color: rgba(255,255,255,0.78);
+}
+
+.header-logo {
+    width: 72px;
+    height: 72px;
     background: rgba(255,255,255,0.15);
-    border: 2px solid rgba(255,255,255,0.35);
+    border: 2px solid rgba(255,255,255,0.3);
     border-radius: 18px;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 20px;
+    margin: 0 auto 16px;
     padding: 8px;
+    backdrop-filter: blur(4px);
 }
-.panel-logo svg { width: 54px; height: 54px; }
+.header-logo svg { width: 50px; height: 50px; }
 
-.toggle-panel h1 {
-    font-size: 20px;
-    font-weight: 700;
-    color: #fff;
-    margin-bottom: 6px;
-    line-height: 1.2;
-}
-.toggle-panel p {
-    font-size: 12px;
-    color: rgba(255,255,255,0.82);
-    line-height: 1.5;
-}
-
-/* ===== PANEL DERECHO (formulario) ===== */
-.form-box {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 40px 36px;
+/* ===== CUERPO BLANCO ===== */
+.card-body {
+    padding: 36px 36px 40px;
+    margin-top: -24px;
     background: #fff;
-}
-
-form { width: 100%; }
-
-.form-box h1 {
-    font-size: 22px;
-    font-weight: 700;
-    color: #111;
-    margin-bottom: 6px;
-}
-.form-box .subtitle {
-    font-size: 12.5px;
-    color: #aaa;
-    margin-bottom: 28px;
-    display: block;
+    border-radius: 20px;
+    position: relative;
 }
 
 /* ===== CAMPOS ===== */
-.form-group { margin-bottom: 18px; }
+.form-group { margin-bottom: 22px; }
 
 .form-group label {
     display: block;
     font-size: 10px;
     font-weight: 600;
-    letter-spacing: 1px;
+    letter-spacing: 1.2px;
     text-transform: uppercase;
-    color: #666;
-    margin-bottom: 7px;
+    color: #888;
+    margin-bottom: 8px;
 }
 
 .input-wrap { position: relative; }
 
 .input-wrap .icon-left {
     position: absolute;
-    left: 13px;
+    left: 0;
     top: 50%;
     transform: translateY(-50%);
-    color: #ccc;
-    font-size: 17px;
+    color: #bbb;
+    font-size: 18px;
     pointer-events: none;
 }
 
 .input-wrap input {
     width: 100%;
-    padding: 11px 42px 11px 40px;
-    border: 1.5px solid #e8e8e8;
-    border-radius: 9px;
-    font-size: 14px;
-    color: #222;
-    background: #fafafa;
+    padding: 10px 36px 10px 28px;
+    border: none;
+    border-bottom: 2px solid #e0e0e0;
+    background: transparent;
+    font-size: 14.5px;
+    color: #111;
     outline: none;
-    transition: border-color .2s, box-shadow .2s;
+    transition: border-color .25s;
+    border-radius: 0;
 }
 .input-wrap input::placeholder { color: #ccc; }
-.input-wrap input:focus {
-    border-color: #d50909;
-    background: #fff;
-    box-shadow: 0 0 0 3px rgba(213,9,9,0.08);
-}
+.input-wrap input:focus { border-bottom-color: #d50909; }
 
 .toggle-pwd {
     position: absolute;
-    right: 13px;
+    right: 0;
     top: 50%;
     transform: translateY(-50%);
     cursor: pointer;
     color: #ccc;
-    font-size: 17px;
+    font-size: 18px;
     transition: color .2s;
 }
 .toggle-pwd:hover { color: #d50909; }
 
 /* ===== RECORDARME ===== */
-.form-footer {
-    display: flex;
-    align-items: center;
-    margin-bottom: 22px;
-}
+.form-footer { margin-bottom: 28px; }
+
 .remember-me {
     display: flex;
     align-items: center;
-    gap: 7px;
+    gap: 8px;
     font-size: 13px;
-    color: #777;
+    color: #888;
     cursor: pointer;
     user-select: none;
 }
 .remember-me input[type="checkbox"] {
     accent-color: #d50909;
-    width: 14px;
-    height: 14px;
+    width: 15px; height: 15px;
     cursor: pointer;
 }
 
-/* ===== BOTÓN ===== */
+/* ===== BOTÓN PÍLDORA ===== */
 .btn-login {
     width: 100%;
-    padding: 13px;
-    background: #d50909;
+    padding: 15px;
+    background: linear-gradient(135deg, #c00, #d50909, #ff3333);
+    background-size: 200% auto;
     color: #fff;
     border: none;
-    border-radius: 9px;
+    border-radius: 50px;
     font-size: 15px;
     font-weight: 600;
     cursor: pointer;
-    letter-spacing: 0.3px;
-    transition: background .2s, box-shadow .2s, transform .1s;
-    box-shadow: 0 4px 14px rgba(213,9,9,0.30);
+    letter-spacing: 0.5px;
+    transition: background-position .4s, box-shadow .2s, transform .1s;
+    box-shadow: 0 6px 20px rgba(213,9,9,0.40);
 }
-.btn-login:hover  { background: #b50000; }
-.btn-login:active { transform: scale(0.99); }
-.btn-login:disabled { opacity: 0.65; cursor: not-allowed; }
+.btn-login:hover {
+    background-position: right center;
+    box-shadow: 0 8px 26px rgba(213,9,9,0.55);
+}
+.btn-login:active  { transform: scale(0.98); }
+.btn-login:disabled { opacity: 0.6; cursor: not-allowed; }
 
-/* ===== MÓVIL (≤ 560px) ===== */
-.mobile-top { display: none; }
-
-@media (max-width: 560px) {
+/* ===== MÓVIL (≤ 540px) ===== */
+@media (max-width: 540px) {
     body {
         background: #d50909;
-        animation: none;
         padding: 0;
         flex-direction: column;
         align-items: stretch;
@@ -209,36 +174,38 @@ form { width: 100%; }
         min-height: 100dvh;
     }
 
-    /* Panel rojo → se convierte en franja superior */
     .container {
+        max-width: 100%;
+        display: flex;
         flex-direction: column;
-        width: 100%;
-        height: auto;
-        min-height: 100dvh;
-        border-radius: 0;
-        box-shadow: none;
-        background: transparent;
+        flex: 1;
     }
 
-    .toggle-box {
-        width: 100%;
-        padding: 48px 24px 34px;
-        background: transparent;
+    /* En móvil el header de la tarjeta es la franja roja */
+    .card-header {
+        border-radius: 0;
+        padding: 52px 24px 38px;
+        background: #d50909;
+        box-shadow: none;
         flex-shrink: 0;
     }
 
-    .form-box {
+    .login-card {
         flex: 1;
-        background: #fff;
         border-radius: 26px 26px 0 0;
-        padding: 32px 26px 50px;
-        box-shadow: 0 -6px 24px rgba(0,0,0,0.12);
-        align-items: flex-start;
+        box-shadow: 0 -8px 30px rgba(0,0,0,0.15);
+        display: flex;
+        flex-direction: column;
+        overflow: visible;
     }
 
-    form { width: 100%; }
+    .card-body {
+        flex: 1;
+        margin-top: 0;
+        border-radius: 26px 26px 0 0;
+        padding: 32px 26px 50px;
+    }
 
-    .form-box h1   { font-size: 20px; }
-    .form-group    { margin-bottom: 15px; }
-    .btn-login     { padding: 14px; font-size: 15px; }
+    .form-group  { margin-bottom: 18px; }
+    .btn-login   { padding: 15px; font-size: 15.5px; }
 }
