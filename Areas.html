@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Áreas - Inventario Tecnológico</title>
+    <link rel="stylesheet" href="Dashboard.css">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div id="app" style="display:none">
+    <aside class="sidebar" id="sidebar"></aside>
+
+    <div class="main-wrapper">
+        <header class="topbar">
+            <div class="topbar-left">
+                <button class="menu-toggle" id="menuToggle"><i class='bx bx-menu'></i></button>
+                <h2>Áreas</h2>
+            </div>
+            <div class="topbar-right">
+                <div class="user-chip">
+                    <i class='bx bxs-user-circle'></i>
+                    <div>
+                        <span id="topbarName"></span>
+                        <small id="topbarRol"></small>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="content">
+
+            <div class="section-bar">
+                <div></div>
+                <button class="btn-primary" id="btnNuevaArea">
+                    <i class='bx bx-plus'></i> Nueva Área
+                </button>
+            </div>
+
+            <!-- Formulario inline -->
+            <div class="card form-card" id="areaFormCard" style="display:none;margin-bottom:20px">
+                <h2 id="areaFormTitle">Nueva Área</h2>
+                <form id="areaForm" style="display:flex;gap:12px;align-items:flex-end;flex-wrap:wrap">
+                    <div class="form-group" style="flex:1;min-width:220px">
+                        <label>Nombre del Área *</label>
+                        <input type="text" id="areaName" placeholder="Ej: Sistemas" required>
+                        <input type="hidden" id="areaEditId">
+                    </div>
+                    <div style="display:flex;gap:8px;padding-bottom:1px">
+                        <button type="button" class="btn-outline" id="cancelAreaBtn">Cancelar</button>
+                        <button type="submit" class="btn-primary"><i class='bx bx-save'></i> Guardar</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Tabla de áreas -->
+            <div class="card table-card">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Nombre del Área</th>
+                            <th>Equipos Asignados</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="areasBody"></tbody>
+                </table>
+            </div>
+
+        </main>
+    </div>
+</div>
+
+<!-- MODAL CONFIRMAR ELIMINAR -->
+<div class="modal-overlay hidden" id="deleteModal">
+    <div class="modal-box small">
+        <div class="modal-header">
+            <h3><i class='bx bx-trash'></i> Confirmar eliminación</h3>
+            <button class="modal-close" id="closeDeleteBtn"><i class='bx bx-x'></i></button>
+        </div>
+        <p style="margin:16px 0;color:#555" id="deleteMsg">¿Eliminar esta área?</p>
+        <div style="display:flex;gap:10px;justify-content:flex-end">
+            <button class="btn-outline" id="cancelDeleteBtn">Cancelar</button>
+            <button class="btn-danger" id="confirmDeleteBtn">Eliminar</button>
+        </div>
+    </div>
+</div>
+
+<script src="app.js"></script>
+<script src="Areas.js"></script>
+</body>
+</html>

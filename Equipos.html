@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Equipos - Inventario Tecnológico</title>
+    <link rel="stylesheet" href="Dashboard.css">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div id="app" style="display:none">
+    <aside class="sidebar" id="sidebar"></aside>
+
+    <div class="main-wrapper">
+        <header class="topbar">
+            <div class="topbar-left">
+                <button class="menu-toggle" id="menuToggle"><i class='bx bx-menu'></i></button>
+                <h2 id="pageTitle">Equipos</h2>
+            </div>
+            <div class="topbar-right">
+                <button class="scan-btn" id="openScannerBtn">
+                    <i class='bx bx-qr-scan'></i> Escanear QR
+                </button>
+                <div class="user-chip">
+                    <i class='bx bxs-user-circle'></i>
+                    <div>
+                        <span id="topbarName"></span>
+                        <small id="topbarRol"></small>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="content">
+
+            <!-- ===== VISTA LISTA ===== -->
+            <div id="view-list">
+                <div class="section-bar">
+                    <div class="filters">
+                        <div class="search-box">
+                            <i class='bx bx-search'></i>
+                            <input type="text" id="searchInput" placeholder="Buscar equipo...">
+                        </div>
+                        <select id="filterArea"><option value="">Área: Todas</option></select>
+                        <select id="filterTipo"><option value="">Tipo: Todos</option></select>
+                        <select id="filterEstado">
+                            <option value="">Estado: Todos</option>
+                            <option value="Activo">Activo</option>
+                            <option value="En mantenimiento">En mantenimiento</option>
+                            <option value="Fuera de servicio">Fuera de servicio</option>
+                        </select>
+                    </div>
+                    <button class="btn-primary" id="btnNuevo">
+                        <i class='bx bx-plus'></i> Nuevo Equipo
+                    </button>
+                </div>
+
+                <div class="card table-card">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Código QR</th>
+                                <th>Tipo</th>
+                                <th>Marca / Descripción</th>
+                                <th>Modelo</th>
+                                <th>Área</th>
+                                <th>Cantidad</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="equiposBody"></tbody>
+                    </table>
+                    <div class="pagination" id="paginacion"></div>
+                </div>
+            </div>
+
+            <!-- ===== VISTA DETALLE ===== -->
+            <div id="view-detail" class="hidden">
+                <button class="back-btn" id="btnBackDetail">
+                    <i class='bx bx-arrow-back'></i> Volver a la lista
+                </button>
+                <div class="detail-layout">
+                    <div class="card detail-qr-card">
+                        <div id="detailQR"></div>
+                        <p id="detailQRLabel" class="qr-label"></p>
+                        <button class="btn-outline" id="btnPrintQR">
+                            <i class='bx bx-printer'></i> Imprimir QR
+                        </button>
+                    </div>
+                    <div class="card detail-info-card">
+                        <div class="detail-header">
+                            <h2>Detalle del Equipo</h2>
+                            <button class="btn-primary" id="btnEditFromDetail">
+                                <i class='bx bx-edit'></i> Editar
+                            </button>
+                        </div>
+                        <table class="detail-table" id="detailTable"></table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== VISTA FORMULARIO ===== -->
+            <div id="view-form" class="hidden">
+                <button class="back-btn" id="btnBackForm">
+                    <i class='bx bx-arrow-back'></i> Volver
+                </button>
+                <div class="card form-card">
+                    <h2 id="formTitle">Nuevo Equipo</h2>
+                    <form id="equipoForm" class="equipo-form">
+                        <div class="form-group">
+                            <label>Código QR *</label>
+                            <input type="text" id="fId" placeholder="Ej: PC-DELL-001" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Tipo de Equipo *</label>
+                            <input type="text" id="fTipo" list="tiposDatalist"
+                                   placeholder="Ej: Computadora, Cable HDMI, Tóner..."
+                                   required autocomplete="off">
+                            <datalist id="tiposDatalist"></datalist>
+                            <small style="color:#aaa;font-size:.73rem;margin-top:2px">
+                                Escribe para filtrar sugerencias o agrega un tipo nuevo
+                            </small>
+                        </div>
+                        <div class="form-group">
+                            <label>Marca *</label>
+                            <input type="text" id="fMarca" placeholder="Ej: Dell" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Modelo *</label>
+                            <input type="text" id="fModelo" placeholder="Ej: OptiPlex 7050" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Número de Serie</label>
+                            <input type="text" id="fSerie" placeholder="Ej: ABC123456">
+                        </div>
+                        <div class="form-group">
+                            <label>Área *</label>
+                            <select id="fArea" required>
+                                <option value="">Seleccionar</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Responsable</label>
+                            <input type="text" id="fResponsable" placeholder="Ej: Juan Pérez">
+                        </div>
+                        <div class="form-group">
+                            <label>Estado *</label>
+                            <select id="fEstado" required>
+                                <option value="">Seleccionar</option>
+                                <option value="Activo">Activo</option>
+                                <option value="En mantenimiento">En mantenimiento</option>
+                                <option value="Fuera de servicio">Fuera de servicio</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Dirección IP</label>
+                            <input type="text" id="fIp" placeholder="Ej: 192.168.1.10">
+                        </div>
+                        <div class="form-group">
+                            <label>Fecha de Registro</label>
+                            <input type="date" id="fFecha">
+                        </div>
+                        <div class="form-group">
+                            <label>Cantidad en Stock</label>
+                            <input type="number" id="fCantidad" placeholder="Ej: 10" min="0" value="1">
+                            <small style="color:#aaa;font-size:.75rem">Para consumibles (cables, tóneres, etc.)</small>
+                        </div>
+                        <div class="form-group full-width">
+                            <label>Observaciones</label>
+                            <textarea id="fObs" rows="3" placeholder="Escribe observaciones (opcional)"></textarea>
+                        </div>
+                        <div class="form-actions full-width">
+                            <button type="button" class="btn-outline" id="btnCancelarForm">Cancelar</button>
+                            <button type="submit" class="btn-primary">
+                                <i class='bx bx-save'></i> Guardar
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </main>
+    </div>
+</div>
+
+<!-- MODAL ESCANER QR -->
+<div class="modal-overlay hidden" id="scannerModal">
+    <div class="modal-box">
+        <div class="modal-header">
+            <h3><i class='bx bx-qr-scan'></i> Escanear Código QR</h3>
+            <button class="modal-close" id="closeScannerBtn"><i class='bx bx-x'></i></button>
+        </div>
+        <div id="qr-reader" style="width:100%;border-radius:8px;overflow:hidden"></div>
+        <p class="scan-hint">Apunta la cámara al código QR del equipo</p>
+    </div>
+</div>
+
+<!-- MODAL CONFIRMAR ELIMINAR -->
+<div class="modal-overlay hidden" id="deleteModal">
+    <div class="modal-box small">
+        <div class="modal-header">
+            <h3><i class='bx bx-trash'></i> Confirmar eliminación</h3>
+            <button class="modal-close" id="closeDeleteBtn"><i class='bx bx-x'></i></button>
+        </div>
+        <p style="margin:16px 0;color:#555">¿Estás seguro de que deseas eliminar este equipo? Esta acción no se puede deshacer.</p>
+        <div style="display:flex;gap:10px;justify-content:flex-end">
+            <button class="btn-outline" id="cancelDeleteBtn">Cancelar</button>
+            <button class="btn-danger" id="confirmDeleteBtn">Eliminar</button>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL IMPRIMIR QR -->
+<div class="modal-overlay hidden" id="printModal">
+    <div class="modal-box small" style="text-align:center">
+        <div class="modal-header">
+            <h3><i class='bx bx-printer'></i> Etiqueta QR</h3>
+            <button class="modal-close" id="closePrintBtn"><i class='bx bx-x'></i></button>
+        </div>
+        <div style="margin:16px 0">
+            <!-- Etiqueta de impresión con diseño de la empresa -->
+            <div id="qr-print-label">
+                <div class="qrl-header">ACTIVO No. <span id="printLabelId"></span></div>
+                <div class="qrl-qr" id="printQRContainer"></div>
+                <div class="qrl-footer">
+                    <div id="printPELogo"></div>
+                    <div class="qrl-company">
+                        <strong>PLOMERÍA ELÉCTRICA</strong>
+                        DE REYNOSA, S.A. DE C.V.
+                    </div>
+                </div>
+            </div>
+        </div>
+        <p id="printQRInfo" style="color:#777;font-size:.8rem;margin-bottom:16px"></p>
+        <button class="btn-primary" id="doPrintBtn"><i class='bx bx-printer'></i> Imprimir etiqueta</button>
+    </div>
+</div>
+
+<!-- MODAL IP CONFLICTO -->
+<div class="modal-overlay hidden" id="ipConflictModal">
+    <div class="modal-box small">
+        <div class="modal-header">
+            <h3 style="color:#d97706"><i class='bx bx-error'></i> IP ya está en uso</h3>
+            <button class="modal-close" id="closeIPConflictBtn"><i class='bx bx-x'></i></button>
+        </div>
+        <div id="ipConflictMsg" style="margin:14px 0;color:#555;line-height:1.6;font-size:.9rem"></div>
+        <div style="background:#fff7ed;border:1px solid #fed7aa;border-radius:8px;padding:10px;margin-bottom:16px;font-size:.82rem;color:#92400e">
+            <i class='bx bx-info-circle'></i> Si continúas, la IP quedará marcada como <strong>Conflicto</strong> en la sección de Control de IPs.
+        </div>
+        <div style="display:flex;gap:10px;justify-content:flex-end">
+            <button class="btn-outline" id="cancelIPConflictBtn">Cancelar</button>
+            <button class="btn-danger" id="confirmIPConflictBtn"><i class='bx bx-save'></i> Guardar de todas formas</button>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+<script src="app.js"></script>
+<script src="Equipos.js"></script>
+</body>
+</html>

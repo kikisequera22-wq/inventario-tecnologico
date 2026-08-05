@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Control de IPs - Inventario Tecnológico</title>
+    <link rel="stylesheet" href="Dashboard.css">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div id="app" style="display:none">
+    <aside class="sidebar" id="sidebar"></aside>
+
+    <div class="main-wrapper">
+        <header class="topbar">
+            <div class="topbar-left">
+                <button class="menu-toggle" id="menuToggle"><i class='bx bx-menu'></i></button>
+                <h2>Control de IPs</h2>
+            </div>
+            <div class="topbar-right">
+                <div class="user-chip">
+                    <i class='bx bxs-user-circle'></i>
+                    <div>
+                        <span id="topbarName"></span>
+                        <small id="topbarRol"></small>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="content">
+
+            <!-- STATS IPs -->
+            <div class="stats-grid" style="margin-bottom:20px;grid-template-columns:repeat(5,1fr)">
+                <div class="stat-card red">
+                    <div class="stat-icon"><i class='bx bx-network-chart'></i></div>
+                    <div class="stat-info"><p class="stat-label">Total IPs en rango</p><h3 id="ipTotal">0</h3></div>
+                </div>
+                <div class="stat-card green">
+                    <div class="stat-icon"><i class='bx bx-check-circle'></i></div>
+                    <div class="stat-info"><p class="stat-label">IPs Ocupadas</p><h3 id="ipOcupadas">0</h3></div>
+                </div>
+                <div class="stat-card blue">
+                    <div class="stat-icon"><i class='bx bx-wifi-off'></i></div>
+                    <div class="stat-info"><p class="stat-label">IPs Libres</p><h3 id="ipLibres">0</h3></div>
+                </div>
+                <div class="stat-card orange">
+                    <div class="stat-icon"><i class='bx bx-lock'></i></div>
+                    <div class="stat-info"><p class="stat-label">Reservadas (manual)</p><h3 id="ipReservadas">0</h3></div>
+                </div>
+                <div class="stat-card red">
+                    <div class="stat-icon"><i class='bx bx-error'></i></div>
+                    <div class="stat-info"><p class="stat-label">En Conflicto</p><h3 id="ipConflictos">0</h3></div>
+                </div>
+            </div>
+
+            <!-- BARRA ACCIONES -->
+            <div class="section-bar" style="margin-bottom:16px">
+                <div class="filters">
+                    <div class="search-box">
+                        <i class='bx bx-search'></i>
+                        <input type="text" id="searchIP" placeholder="Buscar IP o equipo...">
+                    </div>
+                    <select id="filterIPEstado">
+                        <option value="">Estado: Todos</option>
+                        <option value="ocupada">Ocupadas</option>
+                        <option value="libre">Libres</option>
+                        <option value="reservada">Reservadas</option>
+                        <option value="conflicto">⚠ Conflicto</option>
+                    </select>
+                    <div class="search-box" style="gap:6px">
+                        <span style="font-size:.8rem;color:#6b7280;white-space:nowrap">Rango:</span>
+                        <input type="text" id="rangoBase" value="192.168.1" style="width:90px">
+                        <span style="color:#aaa">.</span>
+                        <input type="number" id="rangoDesde" value="1"   min="1"   max="254" style="width:55px">
+                        <span style="color:#aaa">–</span>
+                        <input type="number" id="rangoHasta" value="254" min="1"   max="254" style="width:55px">
+                        <button class="btn-primary" id="btnAplicarRango" style="padding:7px 12px;font-size:.8rem">Aplicar</button>
+                    </div>
+                </div>
+                <div style="display:flex;gap:8px">
+                    <button class="btn-outline" id="btnMarcarConflicto" style="color:#d97706;border-color:#d97706">
+                        <i class='bx bx-error'></i> Marcar conflicto
+                    </button>
+                    <button class="btn-primary" id="btnReservarIP">
+                        <i class='bx bx-plus'></i> Reservar IP
+                    </button>
+                </div>
+            </div>
+
+            <!-- TABLA IPs -->
+            <div class="card table-card">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Dirección IP</th>
+                            <th>Equipo</th>
+                            <th>Área</th>
+                            <th>Tipo</th>
+                            <th>Estado</th>
+                            <th>Nota / Responsable</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ipsBody"></tbody>
+                </table>
+                <div class="pagination" id="ipsPag"></div>
+            </div>
+
+        </main>
+    </div>
+</div>
+
+<!-- MODAL RESERVAR IP MANUAL -->
+<div class="modal-overlay hidden" id="reservaModal">
+    <div class="modal-box">
+        <div class="modal-header">
+            <h3><i class='bx bx-lock'></i> Reservar IP Manualmente</h3>
+            <button class="modal-close" id="closeReservaBtn"><i class='bx bx-x'></i></button>
+        </div>
+        <form id="reservaForm" style="display:flex;flex-direction:column;gap:14px;margin-top:8px">
+            <input type="hidden" id="reservaEditId">
+            <div class="form-group">
+                <label>Dirección IP *</label>
+                <input type="text" id="reservaIP" placeholder="Ej: 192.168.1.200" required>
+            </div>
+            <div class="form-group">
+                <label>Descripción / Nota *</label>
+                <input type="text" id="reservaNota" placeholder="Ej: Reservada para servidor de backups" required>
+            </div>
+            <div class="form-group">
+                <label>Responsable</label>
+                <input type="text" id="reservaResponsable" placeholder="Ej: Carlos Martínez">
+            </div>
+            <div style="display:flex;gap:10px;justify-content:flex-end">
+                <button type="button" class="btn-outline" id="cancelReservaBtn">Cancelar</button>
+                <button type="submit" class="btn-primary"><i class='bx bx-save'></i> Guardar</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- MODAL MARCAR CONFLICTO -->
+<div class="modal-overlay hidden" id="conflictoModal">
+    <div class="modal-box">
+        <div class="modal-header">
+            <h3 style="color:#d97706"><i class='bx bx-error'></i> Marcar IP como Conflicto</h3>
+            <button class="modal-close" id="closeConflictoBtn"><i class='bx bx-x'></i></button>
+        </div>
+        <form id="conflictoForm" style="display:flex;flex-direction:column;gap:14px;margin-top:8px">
+            <input type="hidden" id="conflictoEditId">
+            <div class="form-group">
+                <label>Dirección IP *</label>
+                <input type="text" id="conflictoIP" placeholder="Ej: 192.168.1.50" required>
+            </div>
+            <div class="form-group">
+                <label>Motivo del conflicto *</label>
+                <input type="text" id="conflictoNota" placeholder="Ej: IP duplicada, causa caídas de red" required>
+            </div>
+            <div class="form-group">
+                <label>Responsable</label>
+                <input type="text" id="conflictoResponsable" placeholder="Ej: Carlos Martínez">
+            </div>
+            <div style="background:#fff7ed;border:1px solid #fed7aa;border-radius:8px;padding:10px;font-size:.82rem;color:#92400e">
+                <i class='bx bx-info-circle'></i> Esta IP quedará marcada como <strong>Conflicto</strong> para que no se vuelva a usar accidentalmente.
+            </div>
+            <div style="display:flex;gap:10px;justify-content:flex-end">
+                <button type="button" class="btn-outline" id="cancelConflictoBtn">Cancelar</button>
+                <button type="submit" class="btn-primary" style="background:#d97706;border-color:#d97706">
+                    <i class='bx bx-error'></i> Marcar como conflicto
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- MODAL CONFIRMAR ELIMINAR RESERVA -->
+<div class="modal-overlay hidden" id="deleteReservaModal">
+    <div class="modal-box small">
+        <div class="modal-header">
+            <h3><i class='bx bx-trash'></i> Eliminar reserva</h3>
+            <button class="modal-close" id="closeDeleteReservaBtn"><i class='bx bx-x'></i></button>
+        </div>
+        <p style="margin:16px 0;color:#555">¿Liberar esta IP reservada?</p>
+        <div style="display:flex;gap:10px;justify-content:flex-end">
+            <button class="btn-outline" id="cancelDeleteReservaBtn">Cancelar</button>
+            <button class="btn-danger" id="confirmDeleteReservaBtn">Liberar</button>
+        </div>
+    </div>
+</div>
+
+<script src="app.js"></script>
+<script src="IPs.js"></script>
+</body>
+</html>

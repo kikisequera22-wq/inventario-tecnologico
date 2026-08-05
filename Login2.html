@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventario Tecnológico - Plomería Eléctrica</title>
+    <link rel="stylesheet" href="login2.css">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <!-- INICIAR SESIÓN -->
+        <div class="form-box login">
+            <!-- Solo visible en móvil -->
+            <div class="mobile-header">
+                <div class="mobile-logo-circle">PE</div>
+                <p class="mobile-company-name">Plomería Eléctrica</p>
+                <p class="mobile-company-sub">de Reynosa, S.A. de C.V.</p>
+            </div>
+            <form action="">
+                <h1>Iniciar sesión</h1>
+
+                <div class="input-box">
+                    <input type="email" placeholder="Correo electrónico" required>
+                    <i class="bx bxs-user"></i>
+                </div>
+
+                <div class="input-box">
+                    <input type="password" id="loginPassword" placeholder="Contraseña" required>
+                    <i class="bx bx-show" id="toggleLoginPassword"></i>
+                </div>
+
+                <button type="submit" class="btn">
+                    Iniciar sesión
+                </button>
+
+            </form>
+        </div>
+
+        <!-- PANEL LATERAL -->
+        <div class="toggle-box">
+            <div class="toggle-panel toggle-left">
+                <h1>Plomería Eléctrica</h1>
+                <p>de Reynosa, S.A. de C.V.</p>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="java.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Inventario Tecnológico</title>
+    <link rel="stylesheet" href="Dashboard.css">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div id="app" style="display:none">
+    <aside class="sidebar" id="sidebar"></aside>
+
+    <div class="main-wrapper">
+        <header class="topbar">
+            <div class="topbar-left">
+                <button class="menu-toggle" id="menuToggle"><i class='bx bx-menu'></i></button>
+                <h2>Dashboard</h2>
+            </div>
+            <div class="topbar-right">
+                <div class="user-chip">
+                    <i class='bx bxs-user-circle'></i>
+                    <div>
+                        <span id="topbarName"></span>
+                        <small id="topbarRol"></small>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="content">
+
+            <!-- STAT CARDS -->
+            <div class="stats-grid">
+                <div class="stat-card blue">
+                    <div class="stat-icon"><i class='bx bx-devices'></i></div>
+                    <div class="stat-info">
+                        <p class="stat-label">Total de Equipos</p>
+                        <h3 id="statTotal">0</h3>
+                    </div>
+                </div>
+                <div class="stat-card green">
+                    <div class="stat-icon"><i class='bx bx-check-circle'></i></div>
+                    <div class="stat-info">
+                        <p class="stat-label">Equipos Activos</p>
+                        <h3 id="statActivos">0</h3>
+                    </div>
+                </div>
+                <div class="stat-card orange">
+                    <div class="stat-icon"><i class='bx bx-wrench'></i></div>
+                    <div class="stat-info">
+                        <p class="stat-label">En Mantenimiento</p>
+                        <h3 id="statMant">0</h3>
+                    </div>
+                </div>
+                <div class="stat-card red">
+                    <div class="stat-icon"><i class='bx bx-x-circle'></i></div>
+                    <div class="stat-info">
+                        <p class="stat-label">Fuera de Servicio</p>
+                        <h3 id="statFuera">0</h3>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CHART + RECENT -->
+            <div class="dash-grid">
+                <div class="card chart-card">
+                    <div class="card-header">
+                        <h3>Equipos por Área</h3>
+                    </div>
+                    <canvas id="areaChart"></canvas>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Equipos Recientes</h3>
+                        <a class="link-action" href="Equipos.html">Ver todos</a>
+                    </div>
+                    <table class="mini-table">
+                        <thead>
+                            <tr><th>Código QR</th><th>Equipo</th><th>Estado</th></tr>
+                        </thead>
+                        <tbody id="recentTable"></tbody>
+                    </table>
+                </div>
+            </div>
+
+        </main>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="app.js"></script>
+<script>
+const user = initPage('dashboard');
+if (user) {
+    (async () => {
+        const [equipos, areas] = await Promise.all([getEquipos(), getAreas()]);
+
+        document.getElementById('statTotal').textContent   = equipos.length;
+        document.getElementById('statActivos').textContent = equipos.filter(e => e.estado === 'Activo').length;
+        document.getElementById('statMant').textContent    = equipos.filter(e => e.estado === 'En mantenimiento').length;
+        document.getElementById('statFuera').textContent   = equipos.filter(e => e.estado === 'Fuera de servicio').length;
+
+        // Tabla recientes (primeros 5, ya vienen ordenados DESC por fecha)
+        const tbody = document.getElementById('recentTable');
+        equipos.slice(0, 5).forEach(e => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td><span class="code-badge">${e.id}</span></td>
+                <td>${e.marca} ${e.modelo}</td>
+                <td>${badge(e.estado)}</td>
+            `;
+            tbody.appendChild(tr);
+        });
+
+        // Gráfica por área
+        const counts = {};
+        areas.forEach(a => counts[a.nombre] = 0);
+        equipos.forEach(e => { if (counts[e.area] !== undefined) counts[e.area]++; else counts[e.area] = 1; });
+        const labels = Object.keys(counts);
+        const data   = Object.values(counts);
+
+        new Chart(document.getElementById('areaChart'), {
+            type: 'bar',
+            data: {
+                labels,
+                datasets: [{
+                    label: 'Equipos',
+                    data,
+                    backgroundColor: 'rgba(213,9,9,0.75)',
+                    borderRadius: 6,
+                    borderSkipped: false,
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: { legend: { display: false } },
+                scales: {
+                    y: { beginAtZero: true, ticks: { precision: 0 }, grid: { color: '#f0f0f0' } },
+                    x: { grid: { display: false } }
+                }
+            }
+        });
+    })();
+}
+</script>
+</body>
+</html>

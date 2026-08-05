@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reportes - Inventario Tecnológico</title>
+    <link rel="stylesheet" href="Dashboard.css">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div id="app" style="display:none">
+    <aside class="sidebar" id="sidebar"></aside>
+
+    <div class="main-wrapper">
+        <header class="topbar">
+            <div class="topbar-left">
+                <button class="menu-toggle" id="menuToggle"><i class='bx bx-menu'></i></button>
+                <h2>Reportes</h2>
+            </div>
+            <div class="topbar-right">
+                <div class="user-chip">
+                    <i class='bx bxs-user-circle'></i>
+                    <div>
+                        <span id="topbarName"></span>
+                        <small id="topbarRol"></small>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="content">
+
+            <!-- STATS -->
+            <div class="stats-grid" style="margin-bottom:24px">
+                <div class="stat-card blue">
+                    <div class="stat-icon"><i class='bx bx-devices'></i></div>
+                    <div class="stat-info"><p class="stat-label">Total Equipos</p><h3 id="repTotal">0</h3></div>
+                </div>
+                <div class="stat-card green">
+                    <div class="stat-icon"><i class='bx bx-check-circle'></i></div>
+                    <div class="stat-info"><p class="stat-label">Activos</p><h3 id="repActivos">0</h3></div>
+                </div>
+                <div class="stat-card orange">
+                    <div class="stat-icon"><i class='bx bx-wrench'></i></div>
+                    <div class="stat-info"><p class="stat-label">En Mantenimiento</p><h3 id="repMant">0</h3></div>
+                </div>
+                <div class="stat-card red">
+                    <div class="stat-icon"><i class='bx bx-x-circle'></i></div>
+                    <div class="stat-info"><p class="stat-label">Fuera de Servicio</p><h3 id="repFuera">0</h3></div>
+                </div>
+            </div>
+
+            <!-- FILTROS -->
+            <div class="section-bar" style="margin-bottom:16px">
+                <div class="filters">
+                    <select id="repFilterArea"><option value="">Área: Todas</option></select>
+                    <select id="repFilterEstado">
+                        <option value="">Estado: Todos</option>
+                        <option value="Activo">Activo</option>
+                        <option value="En mantenimiento">En mantenimiento</option>
+                        <option value="Fuera de servicio">Fuera de servicio</option>
+                    </select>
+                    <select id="repFilterTipo"><option value="">Tipo: Todos</option></select>
+                </div>
+                <button class="btn-primary" id="exportCSVBtn">
+                    <i class='bx bx-export'></i> Exportar CSV
+                </button>
+            </div>
+
+            <!-- TABLA COMPLETA -->
+            <div class="card table-card">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Código QR</th>
+                            <th>Tipo</th>
+                            <th>Marca</th>
+                            <th>Modelo</th>
+                            <th>N° Serie</th>
+                            <th>Área</th>
+                            <th>Responsable</th>
+                            <th>Estado</th>
+                            <th>Fecha</th>
+                        </tr>
+                    </thead>
+                    <tbody id="reporteBody"></tbody>
+                </table>
+            </div>
+
+        </main>
+    </div>
+</div>
+
+<script src="app.js"></script>
+<script src="Reportes.js"></script>
+</body>
+</html>

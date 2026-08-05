@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Usuarios - Inventario Tecnológico</title>
+    <link rel="stylesheet" href="Dashboard.css">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div id="app" style="display:none">
+    <aside class="sidebar" id="sidebar"></aside>
+
+    <div class="main-wrapper">
+        <header class="topbar">
+            <div class="topbar-left">
+                <button class="menu-toggle" id="menuToggle"><i class='bx bx-menu'></i></button>
+                <h2>Usuarios</h2>
+            </div>
+            <div class="topbar-right">
+                <div class="user-chip">
+                    <i class='bx bxs-user-circle'></i>
+                    <div>
+                        <span id="topbarName"></span>
+                        <small id="topbarRol"></small>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="content">
+
+            <div class="section-bar">
+                <div></div>
+                <button class="btn-primary" id="btnNuevoUsuario">
+                    <i class='bx bx-plus'></i> Nuevo Usuario
+                </button>
+            </div>
+
+            <!-- Formulario inline -->
+            <div class="card form-card" id="usuarioFormCard" style="display:none;margin-bottom:20px">
+                <h2 id="usuarioFormTitle">Nuevo Usuario</h2>
+                <form id="usuarioForm" class="equipo-form">
+                    <div class="form-group">
+                        <label>Nombre completo *</label>
+                        <input type="text" id="uNombre" placeholder="Ej: Juan Pérez" required>
+                        <input type="hidden" id="uEditId">
+                    </div>
+                    <div class="form-group">
+                        <label>Correo electrónico *</label>
+                        <input type="email" id="uEmail" placeholder="Ej: juan@empresa.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Contraseña <span id="passNote" style="font-weight:400;text-transform:none">(dejar vacío para no cambiar)</span></label>
+                        <input type="password" id="uPassword" placeholder="••••••••">
+                    </div>
+                    <div class="form-group">
+                        <label>Rol *</label>
+                        <select id="uRol">
+                            <option value="Administrador">Administrador</option>
+                            <option value="Operador">Operador</option>
+                            <option value="Visualizador">Visualizador (solo lectura)</option>
+                        </select>
+                    </div>
+                    <div class="form-actions full-width">
+                        <button type="button" class="btn-outline" id="cancelUsuarioBtn">Cancelar</button>
+                        <button type="submit" class="btn-primary"><i class='bx bx-save'></i> Guardar</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Tabla usuarios -->
+            <div class="card table-card">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Correo</th>
+                            <th>Rol</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="usuariosBody"></tbody>
+                </table>
+            </div>
+
+        </main>
+    </div>
+</div>
+
+<!-- MODAL CONFIRMAR ELIMINAR -->
+<div class="modal-overlay hidden" id="deleteModal">
+    <div class="modal-box small">
+        <div class="modal-header">
+            <h3><i class='bx bx-trash'></i> Confirmar eliminación</h3>
+            <button class="modal-close" id="closeDeleteBtn"><i class='bx bx-x'></i></button>
+        </div>
+        <p style="margin:16px 0;color:#555">¿Estás seguro de que deseas eliminar este usuario?</p>
+        <div style="display:flex;gap:10px;justify-content:flex-end">
+            <button class="btn-outline" id="cancelDeleteBtn">Cancelar</button>
+            <button class="btn-danger" id="confirmDeleteBtn">Eliminar</button>
+        </div>
+    </div>
+</div>
+
+<script src="app.js"></script>
+<script src="Usuarios.js"></script>
+</body>
+</html>
