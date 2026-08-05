@@ -5,129 +5,136 @@
     font-family: 'Poppins', 'Segoe UI', sans-serif;
 }
 
-/* ===== ESCRITORIO ===== */
+/* ===== FONDO ===== */
 body {
     min-height: 100vh;
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, #fff 0%, #ffe5e5 40%, #fff 70%, #ffd0d0 100%);
-    background-size: 300% 300%;
-    animation: bgMove 14s ease infinite;
+    background: #f7f7f8;
     padding: 24px 16px;
-}
-
-@keyframes bgMove {
-    0%, 100% { background-position: 0% 50%; }
-    50%       { background-position: 100% 50%; }
 }
 
 /* Área roja superior — oculta en escritorio */
 .mobile-top { display: none; }
 
-/* Tarjeta principal */
+/* ===== TARJETA ===== */
 .login-card {
     background: #fff;
-    border-radius: 20px;
-    box-shadow: 0 8px 40px rgba(213, 9, 9, 0.13), 0 2px 8px rgba(0,0,0,0.06);
-    border: 1px solid rgba(213, 9, 9, 0.10);
-    padding: 44px 40px 40px;
+    border-radius: 18px;
+    border: 1.5px solid #f0d0d0;
+    box-shadow: 0 4px 32px rgba(213,9,9,0.10), 0 1px 4px rgba(0,0,0,0.05);
+    padding: 48px 44px 44px;
     width: 100%;
-    max-width: 420px;
+    max-width: 430px;
+    position: relative;
 }
 
-/* Logo escritorio */
+/* ===== LOGO (círculo con ícono PE) ===== */
 .card-logo-wrap {
     display: flex;
     justify-content: center;
-    margin-bottom: 18px;
+    margin-bottom: 8px;
 }
-.card-logo-svg { width: 68px; height: 68px; }
 
-/* Título */
+.logo-circle {
+    width: 88px;
+    height: 88px;
+    border-radius: 50%;
+    border: 2px solid #f0d0d0;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 12px rgba(213,9,9,0.12);
+}
+
+.card-logo-svg { width: 60px; height: 60px; }
+
+/* ===== TÍTULO ===== */
 .login-title {
     text-align: center;
-    margin-bottom: 28px;
+    margin-bottom: 32px;
 }
 .login-title h1 {
-    font-size: 20px;
+    font-size: 22px;
     font-weight: 700;
-    color: #1a1a1a;
+    color: #111;
     margin-bottom: 5px;
 }
+.login-title h1 span { color: #d50909; }
 .login-title p {
-    font-size: 12.5px;
-    color: #999;
-    line-height: 1.4;
+    font-size: 13px;
+    color: #aaa;
 }
 
-/* Grupos de campo */
-.form-group {
-    margin-bottom: 18px;
-}
+/* ===== CAMPOS ===== */
+.form-group { margin-bottom: 20px; }
+
 .form-group label {
     display: block;
     font-size: 10.5px;
     font-weight: 600;
-    letter-spacing: 0.9px;
+    letter-spacing: 1px;
     text-transform: uppercase;
-    color: #555;
-    margin-bottom: 7px;
+    color: #666;
+    margin-bottom: 8px;
 }
 
-/* Input con icono */
-.input-wrap {
-    position: relative;
-}
-.input-wrap i {
+.input-wrap { position: relative; }
+
+.input-wrap .icon-left {
     position: absolute;
-    left: 13px;
+    left: 14px;
     top: 50%;
     transform: translateY(-50%);
-    color: #bbb;
+    color: #ccc;
     font-size: 18px;
     pointer-events: none;
 }
+
 .input-wrap input {
     width: 100%;
-    padding: 13px 44px 13px 42px;
-    border: 1.5px solid #e5e5e5;
+    padding: 13px 46px 13px 44px;
+    border: 1.5px solid #e8e8e8;
     border-radius: 10px;
     font-size: 14.5px;
     color: #222;
+    background: #fcfcfc;
     outline: none;
-    background: #fafafa;
-    transition: border-color .2s, background .2s;
+    transition: border-color .2s, box-shadow .2s;
 }
 .input-wrap input::placeholder { color: #ccc; }
 .input-wrap input:focus {
     border-color: #d50909;
     background: #fff;
+    box-shadow: 0 0 0 3px rgba(213,9,9,0.08);
 }
 
-/* Ojo para contraseña */
 .toggle-pwd {
-    position: absolute !important;
-    right: 13px;
-    left: auto !important;
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
     cursor: pointer;
-    pointer-events: all !important;
-    color: #bbb;
+    color: #ccc;
+    font-size: 18px;
     transition: color .2s;
 }
 .toggle-pwd:hover { color: #d50909; }
 
-/* Fila "Recordarme" */
+/* ===== PIE DEL FORM ===== */
 .form-footer {
-    margin-bottom: 22px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 26px;
 }
 .remember-me {
     display: flex;
     align-items: center;
     gap: 7px;
     font-size: 13px;
-    color: #666;
+    color: #777;
     cursor: pointer;
     user-select: none;
 }
@@ -138,96 +145,76 @@ body {
     cursor: pointer;
 }
 
-/* Botón */
+/* ===== BOTÓN ===== */
 .btn-login {
     width: 100%;
-    padding: 14px;
+    padding: 15px;
     background: #d50909;
     color: #fff;
     border: none;
     border-radius: 10px;
-    font-size: 15px;
+    font-size: 15.5px;
     font-weight: 600;
     cursor: pointer;
-    letter-spacing: 0.3px;
-    transition: background .2s, transform .1s, box-shadow .2s;
-    box-shadow: 0 4px 14px rgba(213, 9, 9, 0.35);
+    letter-spacing: 0.4px;
+    transition: background .2s, box-shadow .2s, transform .1s;
+    box-shadow: 0 4px 16px rgba(213,9,9,0.30);
 }
-.btn-login:hover  { background: #b50000; box-shadow: 0 6px 18px rgba(213,9,9,.45); }
+.btn-login:hover  { background: #b50000; box-shadow: 0 6px 20px rgba(213,9,9,.40); }
 .btn-login:active { transform: scale(0.99); }
 .btn-login:disabled { opacity: 0.65; cursor: not-allowed; transform: none; }
 
-/* ===== MÓVIL ===== */
-@media (max-width: 500px) {
+/* ===== MÓVIL (≤ 520px) ===== */
+@media (max-width: 520px) {
     body {
         background: #d50909;
-        animation: none;
         padding: 0;
-        justify-content: flex-start;
-        align-items: stretch;
+        align-items: flex-end;
         min-height: 100dvh;
     }
 
-    /* Área roja con logo */
+    /* Franja roja con logo y nombre */
     .mobile-top {
         display: flex;
         flex-direction: column;
         align-items: center;
-        padding: 52px 24px 36px;
+        padding: 48px 24px 32px;
         color: #fff;
         text-align: center;
-        flex-shrink: 0;
     }
 
     .login-logo-wrap {
-        width: 80px;
-        height: 80px;
-        background: rgba(255,255,255,0.15);
-        border-radius: 20px;
+        width: 84px;
+        height: 84px;
+        background: rgba(255,255,255,0.18);
         border: 2px solid rgba(255,255,255,0.35);
+        border-radius: 22px;
         display: flex;
         align-items: center;
         justify-content: center;
+        padding: 10px;
         margin-bottom: 14px;
-        padding: 8px;
     }
-
     .login-logo-svg { width: 56px; height: 56px; }
 
-    .mobile-brand {
-        font-size: 20px;
-        font-weight: 700;
-        color: #fff;
-        margin: 0 0 4px;
-    }
-    .mobile-brand-sub {
-        font-size: 12.5px;
-        color: rgba(255,255,255,0.82);
-    }
+    .mobile-brand     { font-size: 21px; font-weight: 700; color: #fff; margin-bottom: 3px; }
+    .mobile-brand-sub { font-size: 12px; color: rgba(255,255,255,0.80); }
 
-    /* Tarjeta blanca desde abajo */
+    /* Tarjeta blanca pegada abajo */
     .login-card {
-        flex: 1;
         border-radius: 26px 26px 0 0;
-        padding: 36px 28px 52px;
-        box-shadow: 0 -6px 28px rgba(0,0,0,0.12);
         border: none;
+        padding: 34px 26px 50px;
+        box-shadow: 0 -8px 30px rgba(0,0,0,0.10);
         max-width: 100%;
-        overflow-y: auto;
+        width: 100%;
     }
 
-    /* Ocultar logo en tarjeta (ya se muestra arriba) */
+    /* Ocultar logo de tarjeta en móvil (ya aparece arriba) */
     .card-logo-wrap { display: none; }
 
-    .login-title {
-        margin-bottom: 24px;
-    }
-    .login-title h1 { font-size: 22px; }
-    .login-title p  { font-size: 12px; }
-
+    .login-title { margin-bottom: 22px; }
+    .login-title h1 { font-size: 20px; }
     .form-group { margin-bottom: 16px; }
-
-    .input-wrap input { padding: 14px 44px 14px 42px; font-size: 15px; }
-
-    .btn-login { padding: 15px; font-size: 16px; }
+    .btn-login  { padding: 15px; font-size: 16px; }
 }
