@@ -7,100 +7,131 @@
 
 /* ===== FONDO ===== */
 body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     min-height: 100vh;
+    background: linear-gradient(-40deg, #d50909, #ffffff, #d50909, #ffffff);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+    padding: 20px;
+}
+
+@keyframes gradientBG {
+    0%   { background-position: 0% 50%; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* ===== CONTENEDOR DOS PANELES ===== */
+.container {
     display: flex;
+    width: 720px;
+    height: 520px;
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.18);
+    overflow: hidden;
+}
+
+/* ===== PANEL IZQUIERDO (rojo) ===== */
+.toggle-box {
+    width: 42%;
+    background: #d50909;
+    display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    background: #f7f7f8;
-    padding: 24px 16px;
-}
-
-/* Área roja superior — oculta en escritorio */
-.mobile-top { display: none; }
-
-/* ===== TARJETA ===== */
-.login-card {
-    background: #fff;
-    border-radius: 18px;
-    border: 1.5px solid #f0d0d0;
-    box-shadow: 0 4px 32px rgba(213,9,9,0.10), 0 1px 4px rgba(0,0,0,0.05);
-    padding: 48px 44px 44px;
-    width: 100%;
-    max-width: 430px;
-    position: relative;
-}
-
-/* ===== LOGO (círculo con ícono PE) ===== */
-.card-logo-wrap {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 8px;
-}
-
-.logo-circle {
-    width: 88px;
-    height: 88px;
-    border-radius: 50%;
-    border: 2px solid #f0d0d0;
-    background: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 2px 12px rgba(213,9,9,0.12);
-}
-
-.card-logo-svg { width: 60px; height: 60px; }
-
-/* ===== TÍTULO ===== */
-.login-title {
+    padding: 40px 28px;
     text-align: center;
-    margin-bottom: 32px;
+    flex-shrink: 0;
 }
-.login-title h1 {
+
+.panel-logo {
+    width: 76px;
+    height: 76px;
+    background: rgba(255,255,255,0.15);
+    border: 2px solid rgba(255,255,255,0.35);
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    padding: 8px;
+}
+.panel-logo svg { width: 54px; height: 54px; }
+
+.toggle-panel h1 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 6px;
+    line-height: 1.2;
+}
+.toggle-panel p {
+    font-size: 12px;
+    color: rgba(255,255,255,0.82);
+    line-height: 1.5;
+}
+
+/* ===== PANEL DERECHO (formulario) ===== */
+.form-box {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 36px;
+    background: #fff;
+}
+
+form { width: 100%; }
+
+.form-box h1 {
     font-size: 22px;
     font-weight: 700;
     color: #111;
-    margin-bottom: 5px;
+    margin-bottom: 6px;
 }
-.login-title h1 span { color: #d50909; }
-.login-title p {
-    font-size: 13px;
+.form-box .subtitle {
+    font-size: 12.5px;
     color: #aaa;
+    margin-bottom: 28px;
+    display: block;
 }
 
 /* ===== CAMPOS ===== */
-.form-group { margin-bottom: 20px; }
+.form-group { margin-bottom: 18px; }
 
 .form-group label {
     display: block;
-    font-size: 10.5px;
+    font-size: 10px;
     font-weight: 600;
     letter-spacing: 1px;
     text-transform: uppercase;
     color: #666;
-    margin-bottom: 8px;
+    margin-bottom: 7px;
 }
 
 .input-wrap { position: relative; }
 
 .input-wrap .icon-left {
     position: absolute;
-    left: 14px;
+    left: 13px;
     top: 50%;
     transform: translateY(-50%);
     color: #ccc;
-    font-size: 18px;
+    font-size: 17px;
     pointer-events: none;
 }
 
 .input-wrap input {
     width: 100%;
-    padding: 13px 46px 13px 44px;
+    padding: 11px 42px 11px 40px;
     border: 1.5px solid #e8e8e8;
-    border-radius: 10px;
-    font-size: 14.5px;
+    border-radius: 9px;
+    font-size: 14px;
     color: #222;
-    background: #fcfcfc;
+    background: #fafafa;
     outline: none;
     transition: border-color .2s, box-shadow .2s;
 }
@@ -113,21 +144,21 @@ body {
 
 .toggle-pwd {
     position: absolute;
-    right: 14px;
+    right: 13px;
     top: 50%;
     transform: translateY(-50%);
     cursor: pointer;
     color: #ccc;
-    font-size: 18px;
+    font-size: 17px;
     transition: color .2s;
 }
 .toggle-pwd:hover { color: #d50909; }
 
-/* ===== PIE DEL FORM ===== */
+/* ===== RECORDARME ===== */
 .form-footer {
     display: flex;
     align-items: center;
-    margin-bottom: 26px;
+    margin-bottom: 22px;
 }
 .remember-me {
     display: flex;
@@ -140,34 +171,37 @@ body {
 }
 .remember-me input[type="checkbox"] {
     accent-color: #d50909;
-    width: 15px;
-    height: 15px;
+    width: 14px;
+    height: 14px;
     cursor: pointer;
 }
 
 /* ===== BOTÓN ===== */
 .btn-login {
     width: 100%;
-    padding: 15px;
+    padding: 13px;
     background: #d50909;
     color: #fff;
     border: none;
-    border-radius: 10px;
-    font-size: 15.5px;
+    border-radius: 9px;
+    font-size: 15px;
     font-weight: 600;
     cursor: pointer;
-    letter-spacing: 0.4px;
+    letter-spacing: 0.3px;
     transition: background .2s, box-shadow .2s, transform .1s;
-    box-shadow: 0 4px 16px rgba(213,9,9,0.30);
+    box-shadow: 0 4px 14px rgba(213,9,9,0.30);
 }
-.btn-login:hover  { background: #b50000; box-shadow: 0 6px 20px rgba(213,9,9,.40); }
+.btn-login:hover  { background: #b50000; }
 .btn-login:active { transform: scale(0.99); }
-.btn-login:disabled { opacity: 0.65; cursor: not-allowed; transform: none; }
+.btn-login:disabled { opacity: 0.65; cursor: not-allowed; }
 
-/* ===== MÓVIL (≤ 520px) ===== */
-@media (max-width: 520px) {
+/* ===== MÓVIL (≤ 560px) ===== */
+.mobile-top { display: none; }
+
+@media (max-width: 560px) {
     body {
         background: #d50909;
+        animation: none;
         padding: 0;
         flex-direction: column;
         align-items: stretch;
@@ -175,50 +209,36 @@ body {
         min-height: 100dvh;
     }
 
-    /* Franja roja con logo y nombre */
-    .mobile-top {
-        display: flex;
+    /* Panel rojo → se convierte en franja superior */
+    .container {
         flex-direction: column;
-        align-items: center;
-        padding: 52px 24px 36px;
-        color: #fff;
-        text-align: center;
+        width: 100%;
+        height: auto;
+        min-height: 100dvh;
+        border-radius: 0;
+        box-shadow: none;
+        background: transparent;
+    }
+
+    .toggle-box {
+        width: 100%;
+        padding: 48px 24px 34px;
+        background: transparent;
         flex-shrink: 0;
     }
 
-    .login-logo-wrap {
-        width: 80px;
-        height: 80px;
-        background: rgba(255,255,255,0.18);
-        border: 2px solid rgba(255,255,255,0.35);
-        border-radius: 20px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 10px;
-        margin-bottom: 14px;
-    }
-    .login-logo-svg { width: 54px; height: 54px; }
-
-    .mobile-brand     { font-size: 20px; font-weight: 700; color: #fff; margin-bottom: 3px; }
-    .mobile-brand-sub { font-size: 12px; color: rgba(255,255,255,0.80); }
-
-    /* Tarjeta blanca pegada abajo */
-    .login-card {
+    .form-box {
         flex: 1;
+        background: #fff;
         border-radius: 26px 26px 0 0;
-        border: none;
-        padding: 34px 26px 50px;
-        box-shadow: 0 -8px 30px rgba(0,0,0,0.10);
-        max-width: 100%;
-        width: 100%;
+        padding: 32px 26px 50px;
+        box-shadow: 0 -6px 24px rgba(0,0,0,0.12);
+        align-items: flex-start;
     }
 
-    /* Ocultar logo de tarjeta en móvil (ya aparece arriba) */
-    .card-logo-wrap { display: none; }
+    form { width: 100%; }
 
-    .login-title { margin-bottom: 22px; }
-    .login-title h1 { font-size: 20px; }
-    .form-group { margin-bottom: 16px; }
-    .btn-login  { padding: 15px; font-size: 16px; }
+    .form-box h1   { font-size: 20px; }
+    .form-group    { margin-bottom: 15px; }
+    .btn-login     { padding: 14px; font-size: 15px; }
 }
