@@ -169,7 +169,9 @@ body {
     body {
         background: #d50909;
         padding: 0;
-        align-items: flex-end;
+        flex-direction: column;
+        align-items: stretch;
+        justify-content: flex-start;
         min-height: 100dvh;
     }
 
@@ -178,30 +180,32 @@ body {
         display: flex;
         flex-direction: column;
         align-items: center;
-        padding: 48px 24px 32px;
+        padding: 52px 24px 36px;
         color: #fff;
         text-align: center;
+        flex-shrink: 0;
     }
 
     .login-logo-wrap {
-        width: 84px;
-        height: 84px;
+        width: 80px;
+        height: 80px;
         background: rgba(255,255,255,0.18);
         border: 2px solid rgba(255,255,255,0.35);
-        border-radius: 22px;
+        border-radius: 20px;
         display: flex;
         align-items: center;
         justify-content: center;
         padding: 10px;
         margin-bottom: 14px;
     }
-    .login-logo-svg { width: 56px; height: 56px; }
+    .login-logo-svg { width: 54px; height: 54px; }
 
-    .mobile-brand     { font-size: 21px; font-weight: 700; color: #fff; margin-bottom: 3px; }
+    .mobile-brand     { font-size: 20px; font-weight: 700; color: #fff; margin-bottom: 3px; }
     .mobile-brand-sub { font-size: 12px; color: rgba(255,255,255,0.80); }
 
     /* Tarjeta blanca pegada abajo */
     .login-card {
+        flex: 1;
         border-radius: 26px 26px 0 0;
         border: none;
         padding: 34px 26px 50px;
