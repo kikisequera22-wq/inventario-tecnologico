@@ -7,7 +7,7 @@
  * antes de app.js y los JS de cada página.
  */
 
-const API_URL = 'http://localhost:3001/api';
+const API_URL = '/api';
 
 // ── TOKEN JWT ─────────────────────────────────────────────
 function getToken()          { return localStorage.getItem('inv_token'); }
