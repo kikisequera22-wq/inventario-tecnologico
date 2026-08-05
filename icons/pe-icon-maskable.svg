@@ -1,5 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
   <rect width="512" height="512" fill="#d50909"/>
   <ellipse cx="256" cy="256" r="185" ry="155" fill="white"/>
-  <text x="256" y="308" font-family="Arial Black, Arial, sans-serif" font-size="160" font-weight="900" fill="#e91e8c" text-anchor="middle">PE</text>
+  <text x="256" y="308" font-family="Arial Black, Arial, sans-serif" font-size="160" font-weight="900" fill="#cc0000" text-anchor="middle">PE</text>
 </svg>
