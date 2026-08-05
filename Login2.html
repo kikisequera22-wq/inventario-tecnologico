@@ -3,28 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#0d0d0d">
+    <meta name="theme-color" content="#0a0a0a">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-title" content="PE Inventario">
     <title>Inventario Tecnológico - Plomería Eléctrica</title>
     <link rel="manifest" href="manifest.json">
     <link rel="icon" type="image/svg+xml" href="icons/pe-icon.svg">
     <link rel="apple-touch-icon" href="icons/pe-icon.svg">
-    <link rel="stylesheet" href="login2.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="login2.css">
 </head>
 <body>
 
-<div class="container">
+<div class="login-wrap">
+
+    <!-- Decoración fondo -->
+    <div class="bg-circle c1"></div>
+    <div class="bg-circle c2"></div>
+
     <div class="login-card">
 
-        <!-- Cabecera roja con logo -->
-        <div class="card-header">
-            <div class="header-logo">
+        <!-- Logo + empresa -->
+        <div class="brand">
+            <div class="brand-logo">
                 <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
                     <defs><clipPath id="cf"><rect x="1" y="1" width="62" height="62" rx="10"/></clipPath></defs>
-                    <rect x="1" y="1" width="62" height="62" rx="10" fill="#f5f5f5"/>
-                    <g clip-path="url(#cf)" stroke="rgba(200,200,200,0.5)" stroke-width="0.8" fill="none">
+                    <rect x="1" y="1" width="62" height="62" rx="10" fill="#1e1e1e"/>
+                    <g clip-path="url(#cf)" stroke="rgba(255,255,255,0.08)" stroke-width="1" fill="none">
                         <line x1="0" y1="8"  x2="64" y2="8"/> <line x1="0" y1="16" x2="64" y2="16"/>
                         <line x1="0" y1="24" x2="64" y2="24"/> <line x1="0" y1="32" x2="64" y2="32"/>
                         <line x1="0" y1="40" x2="64" y2="40"/> <line x1="0" y1="48" x2="64" y2="48"/>
@@ -34,44 +40,53 @@
                         <line x1="40" y1="0" x2="40" y2="64"/> <line x1="48" y1="0" x2="48" y2="64"/>
                         <line x1="56" y1="0" x2="56" y2="64"/>
                     </g>
-                    <rect x="1" y="1" width="62" height="62" rx="10" fill="none" stroke="#ccc" stroke-width="2"/>
-                    <ellipse cx="32" cy="32" r="20" ry="17" fill="white" stroke="#ddd" stroke-width="1.5"/>
+                    <rect x="1" y="1" width="62" height="62" rx="10" fill="none" stroke="rgba(255,80,80,0.5)" stroke-width="2"/>
+                    <ellipse cx="32" cy="32" r="20" ry="17" fill="#111" stroke="rgba(255,80,80,0.4)" stroke-width="1.5"/>
                     <text x="32" y="39" font-family="Arial Black,Arial,sans-serif" font-size="20" font-weight="900" fill="#e91e8c" text-anchor="middle">PE</text>
                 </svg>
             </div>
-            <h1>Inventario Tecnológico</h1>
-            <p>Plomería Eléctrica de Reynosa, S.A. de C.V.</p>
+            <div class="brand-text">
+                <span class="brand-name">Plomería Eléctrica</span>
+                <span class="brand-sub">de Reynosa, S.A. de C.V.</span>
+            </div>
         </div>
 
-        <!-- Cuerpo blanco con formulario -->
-        <div class="card-body">
-            <form id="loginForm">
-                <div class="form-group">
-                    <label for="loginEmail">Correo electrónico</label>
-                    <div class="input-wrap">
-                        <i class='bx bx-envelope icon-left'></i>
-                        <input type="email" id="loginEmail" placeholder="usuario@empresa.com" required autocomplete="email">
-                    </div>
-                </div>
+        <div class="divider"></div>
 
-                <div class="form-group">
-                    <label for="loginPassword">Contraseña</label>
-                    <div class="input-wrap">
-                        <i class='bx bx-lock icon-left'></i>
-                        <input type="password" id="loginPassword" placeholder="••••••••" required autocomplete="current-password">
-                        <i class='bx bx-show toggle-pwd' id="toggleLoginPassword"></i>
-                    </div>
-                </div>
+        <!-- Títulos -->
+        <h1 class="welcome">BIENVENIDO</h1>
+        <p class="welcome-sub">Inventario <span>Tecnológico</span></p>
 
-                <div class="form-footer">
-                    <label class="remember-me">
-                        <input type="checkbox" id="rememberMe"> Recordarme
-                    </label>
+        <!-- Formulario -->
+        <form id="loginForm">
+            <div class="form-group">
+                <label>Correo electrónico</label>
+                <div class="input-wrap">
+                    <i class='bx bx-envelope'></i>
+                    <input type="email" id="loginEmail" placeholder="usuario@empresa.com" required autocomplete="email">
                 </div>
+            </div>
 
-                <button type="submit" class="btn-login" id="btnLogin">Iniciar Sesión →</button>
-            </form>
-        </div>
+            <div class="form-group">
+                <label>Contraseña</label>
+                <div class="input-wrap">
+                    <i class='bx bx-lock-alt'></i>
+                    <input type="password" id="loginPassword" placeholder="••••••••" required autocomplete="current-password">
+                    <i class='bx bx-show eye-btn' id="toggleLoginPassword"></i>
+                </div>
+            </div>
+
+            <div class="form-footer">
+                <label class="remember-me">
+                    <input type="checkbox" id="rememberMe"> Recordarme
+                </label>
+            </div>
+
+            <button type="submit" class="btn-login" id="btnLogin">
+                <span>Entrar al sistema</span>
+                <i class='bx bx-right-arrow-alt'></i>
+            </button>
+        </form>
 
     </div>
 </div>
