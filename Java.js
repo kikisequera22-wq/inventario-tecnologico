@@ -1,61 +1,28 @@
-const toggleLoginPassword = document.getElementById('toggleLoginPassword');
-const loginPassword       = document.getElementById('loginPassword');
+// Toggle mostrar/ocultar contraseña
+document.getElementById('toggleLoginPassword').addEventListener('click', function () {
+    const pwd = document.getElementById('loginPassword');
+    const isText = pwd.type === 'text';
+    pwd.type = isText ? 'password' : 'text';
+    this.classList.toggle('bx-show', isText);
+    this.classList.toggle('bx-hide', !isText);
+});
 
-if (toggleLoginPassword) {
-    toggleLoginPassword.addEventListener('click', () => {
-        if (loginPassword.type === 'password') {
-            loginPassword.type = 'text';
-            toggleLoginPassword.classList.replace('bx-show', 'bx-hide');
-        } else {
-            loginPassword.type = 'password';
-            toggleLoginPassword.classList.replace('bx-hide', 'bx-show');
-        }
-    });
-}
-
-document.querySelector('.form-box.login form').addEventListener('submit', async function (e) {
+// Iniciar sesión
+document.querySelector('form').addEventListener('submit', async function (e) {
     e.preventDefault();
-    const btn      = this.querySelector('.btn');
-    const email    = this.querySelector('input[type="email"]').value.trim();
-    const password = this.querySelector('input[type="password"]').value;
+    const email    = document.getElementById('loginEmail').value.trim();
+    const password = document.getElementById('loginPassword').value;
 
-    btn.textContent = 'Iniciando...';
-    btn.disabled    = true;
+    const btn = document.querySelector('.btn');
+    btn.disabled = true;
+    btn.textContent = 'Entrando...';
 
     try {
-        const res  = await fetch('/api/auth/login', {
-            method:  'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body:    JSON.stringify({ email, password }),
-        });
-        const data = await res.json();
-
-        if (res.ok) {
-            localStorage.setItem('inv_token',   data.token);
-            localStorage.setItem('inv_session', JSON.stringify({ logged: true, user: data.user }));
-            const redirect = sessionStorage.getItem('loginRedirect');
-            if (redirect) {
-                sessionStorage.removeItem('loginRedirect');
-                window.location.href = redirect;
-            } else {
-                window.location.href = 'Dashboard.html';
-            }
-        } else {
-            btn.textContent      = data.error || 'Credenciales incorrectas';
-            btn.style.background = '#333';
-            setTimeout(() => {
-                btn.textContent      = 'Iniciar sesión';
-                btn.style.background = '';
-                btn.disabled         = false;
-            }, 2000);
-        }
-    } catch {
-        btn.textContent      = 'Sin conexión al servidor';
-        btn.style.background = '#333';
-        setTimeout(() => {
-            btn.textContent      = 'Iniciar sesión';
-            btn.style.background = '';
-            btn.disabled         = false;
-        }, 2000);
+        const user = await API.Auth.login(email, password);
+        window.location.href = 'Equipos.html';
+    } catch (err) {
+        btn.disabled = false;
+        btn.textContent = 'Iniciar sesión';
+        alert(err.message || 'Correo o contraseña incorrectos');
     }
 });
