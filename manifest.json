@@ -1,0 +1,32 @@
+{
+    "name": "Inventario Tecnológico - Plomería Eléctrica",
+    "short_name": "PE Inventario",
+    "description": "Sistema de Inventario Tecnológico de Plomería Eléctrica de Reynosa, S.A. de C.V.",
+    "start_url": "/",
+    "display": "standalone",
+    "orientation": "portrait-primary",
+    "background_color": "#ffffff",
+    "theme_color": "#d50909",
+    "lang": "es",
+    "icons": [
+        {
+            "src": "icons/pe-icon.svg",
+            "sizes": "any",
+            "type": "image/svg+xml",
+            "purpose": "any"
+        },
+        {
+            "src": "icons/pe-icon-maskable.svg",
+            "sizes": "any",
+            "type": "image/svg+xml",
+            "purpose": "maskable"
+        }
+    ],
+    "shortcuts": [
+        {
+            "name": "Equipos",
+            "url": "/Equipos.html",
+            "description": "Ver inventario de equipos"
+        }
+    ]
+}

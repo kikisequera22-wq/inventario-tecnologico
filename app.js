@@ -136,6 +136,10 @@ async function deleteUsuarioById(id) {
     return apiFetch(`/api/usuarios/${id}`, { method: 'DELETE' });
 }
 
+async function toggleUsuarioById(id) {
+    return apiFetch(`/api/usuarios/${id}/toggle`, { method: 'PATCH' });
+}
+
 // ========== IPS ==========
 async function getIPsEstado() {
     const r = await apiFetch('/api/ips/estado');

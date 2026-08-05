@@ -20,15 +20,21 @@ async function renderUsuarios() {
     }
 
     allUsuarios.forEach(u => {
-        const isSelf = currentUser && u.id === currentUser.id;
+        const isSelf   = currentUser && u.id === currentUser.id;
+        const isActive = u.activo !== false;
         const tr = document.createElement('tr');
+        if (!isActive) tr.style.opacity = '0.55';
+
         tr.innerHTML = `
             <td>
                 <div style="display:flex;align-items:center;gap:10px">
-                    <div style="width:36px;height:36px;border-radius:50%;background:#fff0f0;display:flex;align-items:center;justify-content:center;color:#d50909;font-weight:700;font-size:.9rem;flex-shrink:0">
+                    <div style="width:36px;height:36px;border-radius:50%;background:${isActive ? '#fff0f0' : '#f0f0f0'};display:flex;align-items:center;justify-content:center;color:${isActive ? '#d50909' : '#aaa'};font-weight:700;font-size:.9rem;flex-shrink:0">
                         ${u.nombre.charAt(0).toUpperCase()}
                     </div>
-                    <span style="font-weight:600">${u.nombre}${isSelf ? ' <span style="font-size:.7rem;color:#aaa">(tú)</span>' : ''}</span>
+                    <div>
+                        <span style="font-weight:600">${u.nombre}${isSelf ? ' <span style="font-size:.7rem;color:#aaa">(tú)</span>' : ''}</span>
+                        ${!isActive ? '<div style="font-size:.7rem;color:#e57373;font-weight:500">Inactivo</div>' : ''}
+                    </div>
                 </div>
             </td>
             <td style="color:#6b7280;font-size:.88rem">${u.email}</td>
@@ -38,7 +44,11 @@ async function renderUsuarios() {
                     <button class="icon-btn edit" title="Editar" onclick="editUsuario(${u.id})">
                         <i class='bx bx-edit'></i>
                     </button>
-                    ${!isSelf ? `<button class="icon-btn delete" title="Desactivar" onclick="openDelete(${u.id})">
+                    ${!isSelf ? `
+                    <button class="icon-btn" style="color:${isActive ? '#16a34a' : '#aaa'}" title="${isActive ? 'Desactivar usuario' : 'Activar usuario'}" onclick="toggleUsuario(${u.id}, ${isActive})">
+                        <i class='bx bx-power-off'></i>
+                    </button>
+                    <button class="icon-btn delete" title="Eliminar permanentemente" onclick="openDelete(${u.id})">
                         <i class='bx bx-trash'></i>
                     </button>` : ''}
                 </div>
@@ -46,6 +56,17 @@ async function renderUsuarios() {
         `;
         tbody.appendChild(tr);
     });
+}
+
+// ===== ACTIVAR / DESACTIVAR =====
+async function toggleUsuario(id, currentlyActive) {
+    const accion = currentlyActive ? 'desactivar' : 'activar';
+    if (!confirm(`¿Deseas ${accion} este usuario?`)) return;
+
+    const r = await toggleUsuarioById(id);
+    if (!r)    { alert('Error de conexión.'); return; }
+    if (!r.ok) { const err = await r.json(); alert(err.error || 'Error al cambiar estado'); return; }
+    await renderUsuarios();
 }
 
 // ===== FORM =====

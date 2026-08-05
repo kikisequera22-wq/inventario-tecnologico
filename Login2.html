@@ -1,59 +1,102 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#d50909">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="PE Inventario">
     <title>Inventario Tecnológico - Plomería Eléctrica</title>
+    <link rel="manifest" href="manifest.json">
     <link rel="stylesheet" href="login2.css">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
 </head>
-
 <body>
 
-    <div class="container">
+    <!-- Área roja superior (solo móvil) -->
+    <div class="mobile-top">
+        <div class="login-logo-wrap">
+            <svg class="login-logo-svg" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+                <defs><clipPath id="cf"><rect x="1" y="1" width="62" height="62" rx="10"/></clipPath></defs>
+                <rect x="1" y="1" width="62" height="62" rx="10" fill="#f5f5f5"/>
+                <g clip-path="url(#cf)" stroke="#bbb" stroke-width="0.7" fill="none">
+                    <line x1="0" y1="8"  x2="64" y2="8"/> <line x1="0" y1="16" x2="64" y2="16"/>
+                    <line x1="0" y1="24" x2="64" y2="24"/> <line x1="0" y1="32" x2="64" y2="32"/>
+                    <line x1="0" y1="40" x2="64" y2="40"/> <line x1="0" y1="48" x2="64" y2="48"/>
+                    <line x1="0" y1="56" x2="64" y2="56"/>
+                    <line x1="8"  y1="0" x2="8"  y2="64"/> <line x1="16" y1="0" x2="16" y2="64"/>
+                    <line x1="24" y1="0" x2="24" y2="64"/> <line x1="32" y1="0" x2="32" y2="64"/>
+                    <line x1="40" y1="0" x2="40" y2="64"/> <line x1="48" y1="0" x2="48" y2="64"/>
+                    <line x1="56" y1="0" x2="56" y2="64"/>
+                </g>
+                <rect x="1" y="1" width="62" height="62" rx="10" fill="none" stroke="#111" stroke-width="2.5"/>
+                <ellipse cx="32" cy="32" r="20" ry="17" fill="white" stroke="#111" stroke-width="1.5"/>
+                <text x="32" y="39" font-family="Arial Black,Arial,sans-serif" font-size="20" font-weight="900" fill="#e91e8c" text-anchor="middle">PE</text>
+            </svg>
+        </div>
+        <p class="mobile-brand">Plomería Eléctrica</p>
+        <p class="mobile-brand-sub">de Reynosa, S.A. de C.V.</p>
+    </div>
 
-        <!-- INICIAR SESIÓN -->
-        <div class="form-box login">
-            <!-- Solo visible en móvil -->
-            <div class="mobile-header">
-                <div class="mobile-logo-circle">PE</div>
-                <p class="mobile-company-name">Plomería Eléctrica</p>
-                <p class="mobile-company-sub">de Reynosa, S.A. de C.V.</p>
-            </div>
-            <form action="">
-                <h1>Iniciar sesión</h1>
+    <!-- Tarjeta de login -->
+    <div class="login-card">
 
-                <div class="input-box">
-                    <input type="email" id="loginEmail" placeholder="Correo electrónico" required>
-                    <i class="bx bxs-user"></i>
-                </div>
-
-                <div class="input-box">
-                    <input type="password" id="loginPassword" placeholder="Contraseña" required>
-                    <i class="bx bx-show" id="toggleLoginPassword"></i>
-                </div>
-
-                <button type="submit" class="btn">
-                    Iniciar sesión
-                </button>
-
-            </form>
+        <!-- Logo (solo escritorio) -->
+        <div class="card-logo-wrap">
+            <svg class="card-logo-svg" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+                <defs><clipPath id="cf2"><rect x="1" y="1" width="62" height="62" rx="10"/></clipPath></defs>
+                <rect x="1" y="1" width="62" height="62" rx="10" fill="#f5f5f5"/>
+                <g clip-path="url(#cf2)" stroke="#bbb" stroke-width="0.7" fill="none">
+                    <line x1="0" y1="8"  x2="64" y2="8"/> <line x1="0" y1="16" x2="64" y2="16"/>
+                    <line x1="0" y1="24" x2="64" y2="24"/> <line x1="0" y1="32" x2="64" y2="32"/>
+                    <line x1="0" y1="40" x2="64" y2="40"/> <line x1="0" y1="48" x2="64" y2="48"/>
+                    <line x1="0" y1="56" x2="64" y2="56"/>
+                    <line x1="8"  y1="0" x2="8"  y2="64"/> <line x1="16" y1="0" x2="16" y2="64"/>
+                    <line x1="24" y1="0" x2="24" y2="64"/> <line x1="32" y1="0" x2="32" y2="64"/>
+                    <line x1="40" y1="0" x2="40" y2="64"/> <line x1="48" y1="0" x2="48" y2="64"/>
+                    <line x1="56" y1="0" x2="56" y2="64"/>
+                </g>
+                <rect x="1" y="1" width="62" height="62" rx="10" fill="none" stroke="#111" stroke-width="2.5"/>
+                <ellipse cx="32" cy="32" r="20" ry="17" fill="white" stroke="#111" stroke-width="1.5"/>
+                <text x="32" y="39" font-family="Arial Black,Arial,sans-serif" font-size="20" font-weight="900" fill="#e91e8c" text-anchor="middle">PE</text>
+            </svg>
         </div>
 
-        <!-- PANEL LATERAL -->
-        <div class="toggle-box">
-            <div class="toggle-panel toggle-left">
-                <h1>Plomería Eléctrica</h1>
-                <p>de Reynosa, S.A. de C.V.</p>
-            </div>
+        <div class="login-title">
+            <h1>Inventario Tecnológico</h1>
+            <p>Plomería Eléctrica de Reynosa — Ingresa a tu cuenta</p>
         </div>
 
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="loginEmail">Correo electrónico</label>
+                <div class="input-wrap">
+                    <i class='bx bx-envelope'></i>
+                    <input type="email" id="loginEmail" placeholder="usuario@empresa.com" required autocomplete="email">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="loginPassword">Contraseña</label>
+                <div class="input-wrap">
+                    <i class='bx bx-lock'></i>
+                    <input type="password" id="loginPassword" placeholder="••••••••" required autocomplete="current-password">
+                    <i class='bx bx-show toggle-pwd' id="toggleLoginPassword"></i>
+                </div>
+            </div>
+
+            <div class="form-footer">
+                <label class="remember-me">
+                    <input type="checkbox" id="rememberMe"> Recordarme
+                </label>
+            </div>
+
+            <button type="submit" class="btn-login" id="btnLogin">Iniciar Sesión →</button>
+        </form>
     </div>
 
     <script src="api-client.js"></script>
     <script src="Java.js"></script>
-
 </body>
-
 </html>

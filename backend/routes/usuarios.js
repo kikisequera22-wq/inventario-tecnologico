@@ -67,14 +67,32 @@ router.put('/:id', requireAdmin, async (req, res) => {
     }
 });
 
-// DELETE /api/usuarios/:id
+// PATCH /api/usuarios/:id/toggle — activa o desactiva
+router.patch('/:id/toggle', requireAdmin, async (req, res) => {
+    try {
+        if (parseInt(req.params.id) === req.user.id)
+            return res.status(400).json({ error: 'No puedes desactivarte a ti mismo' });
+
+        const pool   = getPool();
+        const result = await pool.query(
+            'UPDATE usuarios SET activo = NOT activo WHERE id = $1 RETURNING activo',
+            [req.params.id]
+        );
+        if (!result.rows.length) return res.status(404).json({ error: 'Usuario no encontrado' });
+        res.json({ activo: result.rows[0].activo });
+    } catch (err) {
+        res.status(500).json({ error: 'Error al cambiar estado del usuario' });
+    }
+});
+
+// DELETE /api/usuarios/:id — elimina permanentemente
 router.delete('/:id', requireAdmin, async (req, res) => {
     try {
         if (parseInt(req.params.id) === req.user.id)
             return res.status(400).json({ error: 'No puedes eliminar tu propio usuario' });
 
-        await getPool().query('UPDATE usuarios SET activo = false WHERE id = $1', [req.params.id]);
-        res.json({ message: 'Usuario desactivado' });
+        await getPool().query('DELETE FROM usuarios WHERE id = $1', [req.params.id]);
+        res.json({ message: 'Usuario eliminado' });
     } catch (err) {
         res.status(500).json({ error: 'Error al eliminar usuario' });
     }
